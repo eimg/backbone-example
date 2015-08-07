@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>BbApp</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="styles/main.css">
+
+    <script src="bower_components/modernizr/modernizr.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="hero-unit">
+            <h2>Issue List</h2>
+            <table class="table" id="list">
+                <tr>
+                    <th>Subjecct</th>
+                    <th>Priority</th>
+                    <th>Severity</th>
+                    <th>Assigned To</th>
+                    <th>Status</th>
+                    <th>#</th>
+                </tr>
+            </table>
+
+            <button class="btn btn-primary" data-toggle="modal" data-target="#new">
+                <span class="glyphicon glyphicon-plus"></span>
+                New Issue
+            </button>
+                
+<div class="modal fade" id="new">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">New Issue</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input class="form-control" type="text" id="subject" placeholder="Subject">
+                </div>
+                <div class="form-group">
+                    <select class="form-control" id="priority">
+                        <option value="-1">-- Priority --</option>
+                        <option value="0">Normal</option>
+                        <option value="1">Important</option>
+                        <option value="2">Urgent</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" id="severity">
+                        <option value="-1">-- Severity --</option>
+                        <option value="0">Minor</option>
+                        <option value="1">Major</option>
+                        <option value="2">Crash</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="assigned-to" placeholder="Assigned To">
+                </div>
+                <div class="form-group">
+                    <select class="form-control" id="status">
+                        <option value="-1">-- Status --</option>
+                        <option value="0">Assigned</option>
+                        <option value="1">Doing</option>
+                        <option value="2">Done</option>
+                        <option value="3">Close</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="submit">Submit Issue</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+        </div>
+    </div>
+
+    <script type="text/x-template" id="row">
+        <td><%= subject %></td>
+        <td><%= config.priority[priority] %></td>
+        <td><%= config.severity[severity] %></td>
+        <td><%= assignedTo %></td>
+        <td>
+            <select class='form-control input-sm change-status'>
+                <% _.each(config.status, function(v, i) { %>
+                    <% if(i == status) { %>
+                        <option value='<%= i %>' selected><%= v %></option>
+                    <% } else { %>
+                        <option value='<%= i %>'><%= v %></option>
+                    <% } %>
+                <% }) %>
+            </select>
+        </td>
+        <td>
+            <a href='#' class='del'>
+                <span class='glyphicon glyphicon-remove'></span>
+            </a>
+        </td>
+    </script>
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/backbone/backbone.js"></script>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>
